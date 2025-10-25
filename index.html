@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Loading Directory...</title>
+    <meta name="description" content="Find local services in your area" id="page-description">
+    <meta name="keywords" content="local services, directory" id="page-keywords">
+    
+    <!-- Open Graph meta tags (will be updated by JS) -->
+    <meta property="og:title" content="Loading..." id="og-title">
+    <meta property="og:description" content="Find local services in your area" id="og-description">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="" id="og-url">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/styles.css">
+    
+    <!-- Preconnect to API -->
+    <link rel="preconnect" href="https://offren-api.hf.space">
+</head>
+<body>
+    <!-- Loading State -->
+    <div id="loading" class="loading-container">
+        <div class="container">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <h1>Loading Directory...</h1>
+                <p>Please wait while we fetch the latest listings</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Error State -->
+    <div id="error" class="error-container" style="display: none;">
+        <div class="container">
+            <div class="error-content">
+                <h1>Directory Not Found</h1>
+                <p id="error-message">The requested directory could not be found.</p>
+                <div class="error-actions">
+                    <a href="https://offren.org" class="btn btn-primary">← Back to Main Site</a>
+                    <button onclick="location.reload()" class="btn btn-secondary">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div id="content" class="main-content" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1 id="directory-title">Directory</h1>
+                    <p id="directory-description">Find local services in your area</p>
+                    <div class="directory-stats">
+                        <span id="directory-stats">📊 Loading...</span>
+                        <span id="last-updated">🕒 Recently updated</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Filters -->
+        <section class="filters-section">
+            <div class="container">
+                <div class="filters">
+                    <div class="search-box">
+                        <input 
+                            type="text" 
+                            id="search" 
+                            placeholder="Search by name, location, or service..." 
+                            onkeyup="filterListings()"
+                            autocomplete="off"
+                        >
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    
+                    <div class="filter-chips" id="filter-chips" style="display: none;">
+                        <!-- Dynamic filter chips will be added here -->
+                    </div>
+                    
+                    <div class="results-count">
+                        <span id="results-count">Showing all listings</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Listings -->
+        <section class="listings-section">
+            <div class="container">
+                <div id="listings" class="listings-grid">
+                    <!-- Listings will be populated by JavaScript -->
+                </div>
+                
+                <div id="no-results" class="no-results" style="display: none;">
+                    <h3>No listings found</h3>
+                    <p>Try adjusting your search terms or filters.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-links">
+                        <a href="https://offren.org">Offren</a>
+                        <a href="https://offren.org/about">About</a>
+                        <a href="mailto:hello@offren.org">Add Your Business</a>
+                    </div>
+                    <div class="footer-meta">
+                        <span id="footer-updated">Updated recently</span>
+                        <span>•</span>
+                        <span>Powered by <a href="https://offren.org" target="_blank">Offren</a></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/assets/directory-loader.js"></script>
+    
+    <!-- Schema.org structured data (will be updated by JS) -->
+    <script type="application/ld+json" id="structured-data">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Loading...",
+        "description": "Find local services in your area"
+    }
+    </script>
+</body>
+</html>
