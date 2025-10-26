@@ -27,8 +27,8 @@ class DirectoryLoader {
         
         // Handle different scenarios
         if (parts.length >= 3) {
-            return parts[0]; // subdomain.offren.org
-        } else if (parts.length === 2 && hostname !== 'offren.org') {
+            return parts[0]; // subdomain.simpledirectree.com
+        } else if (parts.length === 2 && hostname !== 'simpledirectree.com') {
             return parts[0]; // subdomain.org (for testing)
         }
         
@@ -41,7 +41,7 @@ class DirectoryLoader {
     
     redirectToMainSite() {
         console.log('🔄 Redirecting to main site');
-        window.location.href = 'https://offren.org';
+        window.location.href = 'https://simpledirectree.com';
     }
     
     async loadDirectory() {
