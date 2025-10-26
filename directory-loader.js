@@ -1,11 +1,11 @@
 // assets/directory-loader.js
 class DirectoryLoader {
     constructor() {
-        this.apiBase = 'https://Offren-offren-directory-api.hf.space/api';
+        this.apiBase = '/api';
         this.subdomain = this.getSubdomain();
         this.listings = [];
         this.filteredListings = [];
-        
+
         // Initialize on load
         this.init();
     }
