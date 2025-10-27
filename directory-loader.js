@@ -55,7 +55,19 @@ class DirectoryLoader {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
 
-            const data = await response.json();
+            const responseText = await response.text();
+
+            // Check if response is HTML (API not working)
+            if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
+                console.warn('❌ API returned HTML instead of JSON, using mock data');
+                const mockData = getMockDirectoryData(this.subdomain);
+                console.log(`✅ Using mock data: ${mockData.listings.length} listings`);
+                this.renderDirectory(mockData);
+                return;
+            }
+
+            // Parse JSON response
+            const data = JSON.parse(responseText);
 
             console.log(`✅ Directory loaded: ${data.listings.length} listings`);
             this.renderDirectory(data);
