@@ -95,63 +95,6 @@
                     <div class="feature-card">
                         <div class="feature-icon">🔍</div>
                         <h3>Easy Search</h3>
-    <!-- Homepage JavaScript -->
-    <script>
-        // Load directories on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            await loadDirectories();
-        });
-
-        async function loadDirectories() {
-            try {
-                const response = await fetch('/api/registry');
-                const data = await response.json();
-
-                const featuresSection = document.getElementById('features-section');
-
-                if (data.directories && data.directories.length > 0) {
-                    const html = `
-                        <div class="container">
-                            <h2>Popular Directories</h2>
-                            <div class="directories-grid">
-                                ${data.directories.map(slug => `
-                                    <div class="directory-card">
-                                        <h3>${formatDirectoryName(slug)}</h3>
-                                        <p>Find ${formatDirectoryName(slug).toLowerCase()} in your area</p>
-                                        <a href="/${slug}" class="btn btn-secondary">Browse Directory</a>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                    featuresSection.innerHTML = html;
-                }
-                // If no directories, keep the original "Why Choose Offren?" content
-            } catch (error) {
-                console.error('Failed to load directories:', error);
-                // On error, keep the original content
-            }
-        }
-
-        function formatDirectoryName(slug) {
-            return slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        }
-
-        function performGlobalSearch() {
-            const query = document.getElementById('global-search').value.trim();
-            if (query) {
-                // Redirect to search page or perform search
-                window.location.href = `/search?q=${encodeURIComponent(query)}`;
-            }
-        }
-
-        // Allow search on Enter key
-        document.getElementById('global-search').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                performGlobalSearch();
-            }
-        });
-    </script>
                         <p>Find exactly what you're looking for with our powerful search and filtering</p>
                     </div>
                     <div class="feature-card">
@@ -271,6 +214,62 @@
 
     <!-- Scripts -->
     <script src="/assets/directory-loader.js"></script>
+    <script>
+        // Load directories on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadDirectories();
+        });
+
+        async function loadDirectories() {
+            try {
+                const response = await fetch('/api/registry');
+                const data = await response.json();
+
+                const featuresSection = document.getElementById('features-section');
+
+                if (data.directories && data.directories.length > 0) {
+                    const html = data.directories.map(slug => `
+                        <div class="directory-card">
+                            <h3>${formatDirectoryName(slug)}</h3>
+                            <p>Find ${formatDirectoryName(slug).toLowerCase()} in your area</p>
+                            <a href="/${slug}" class="btn btn-secondary">Browse Directory</a>
+                        </div>
+                    `).join('');
+
+                    featuresSection.innerHTML = `
+                        <div class="container">
+                            <div class="directories-grid">
+                                ${html}
+                            </div>
+                        </div>
+                    `;
+                }
+                // If no directories or empty, leave features section as is
+            } catch (error) {
+                console.error('Failed to load directories:', error);
+                // Leave features section as is on error
+            }
+        }
+
+        function formatDirectoryName(slug) {
+            return slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        function performGlobalSearch() {
+            const query = document.getElementById('global-search').value.trim();
+            if (query) {
+                // Redirect to search page or perform search
+                window.location.href = `/search?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Allow search on Enter key
+        document.getElementById('global-search').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performGlobalSearch();
+            }
+        });
+    </script>
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json" id="structured-data">
