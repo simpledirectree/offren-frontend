@@ -36,7 +36,7 @@ class DirectoryLoader {
         console.log('🔄 Redirecting to main site');
         // Only redirect if we're not already on the main site
         if (window.location.pathname !== '/') {
-            window.location.href = '/';
+            window.location.href = 'https://simpledirectree.com';
         }
     }
 
