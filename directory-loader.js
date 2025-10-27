@@ -37,6 +37,28 @@ function getMockDirectoryData(directorySlug) {
             id: 5,
             name: "Sample Business 5",
             location: "City Center",
+    showHomepage() {
+        console.log('Showing homepage');
+        // Hide loading and error states
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'none';
+
+        // Show homepage
+        document.getElementById('homepage').style.display = 'block';
+        document.getElementById('content').style.display = 'none';
+
+        // Update page title and meta
+        document.title = 'Offren Directories - Local Business Directory';
+        document.getElementById('page-description').content = 'Find and compare local services in your area';
+        document.getElementById('page-keywords').content = 'local services, directory, business listings';
+
+        // Update Open Graph
+        document.getElementById('og-title').content = 'Offren Directories - Local Business Directory';
+        document.getElementById('og-description').content = 'Find and compare local services in your area';
+        document.getElementById('og-url').content = window.location.href;
+
+        console.log('Homepage displayed successfully');
+    }
             phone: "(555) 654-3210",
             rating: 4.6,
             reviews: 34
@@ -74,10 +96,11 @@ class DirectoryLoader {
     }
 
     async init() {
-        console.log(`🚀 DirectoryLoader starting for subdomain: ${this.subdomain}`);
+        console.log('DirectoryLoader starting for subdomain: ' + this.subdomain);
 
         if (!this.subdomain) {
-            this.redirectToMainSite();
+            // Show homepage for root path
+            this.showHomepage();
             return;
         }
 

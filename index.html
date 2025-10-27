@@ -48,7 +48,190 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Homepage Content -->
+    <div id="homepage" class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1>Offren Directories</h1>
+                    <p>Find and compare local services in your area</p>
+                    <div class="header-subtitle">
+                        <span>Unlimited directories • $0/month • No setup fees</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Discover Local Services</h2>
+                    <p>Browse our comprehensive directory of local
+                    businesses and services. From plumbing to roofing, find trusted
+                    professionals in your area.</p>
+
+                    <!-- Search Box -->
+                    <div class="hero-search">
+                        <input type="text" id="global-search" placeholder="Search for services (plumbing, electricians, roofing...)" autocomplete="off">
+                        <button onclick="performGlobalSearch()" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Directory Grid -->
+        <section class="directories-section">
+            <div class="container">
+                <h2>Popular Directories</h2>
+                <div id="directories-grid" class="directories-grid">
+                    <div class="directory-card">
+                        <h3>Plumbing Services</h3>
+                        <p>Find plumbing services in your area</p>
+                        <a href="/plumbing-services" class="btn btn-secondary">Browse Directory</a>
+                    </div>
+
+                    <div class="directory-card">
+                        <h3>Electricians</h3>
+                        <p>Find electricians in your area</p>
+                        <a href="/electricians" class="btn btn-secondary">Browse Directory</a>
+                    </div>
+
+                    <div class="directory-card">
+                        <h3>Roofing</h3>
+                        <p>Find roofing in your area</p>
+                        <a href="/roofing" class="btn btn-secondary">Browse Directory</a>
+                    </div>
+
+                    <div class="directory-card">
+                        <h3>Hvac</h3>
+                        <p>Find hvac in your area</p>
+                        <a href="/hvac" class="btn btn-secondary">Browse Directory</a>
+                    </div>
+
+                    <div class="directory-card">
+                        <h3>Landscaping</h3>
+                        <p>Find landscaping in your area</p>
+                        <a href="/landscaping" class="btn btn-secondary">Browse Directory</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2>Why Choose Offren?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Comprehensive Listings</h3>
+                        <p>Detailed business information with reviews, ratings, and contact details</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Easy Search</h3>
+    <!-- Homepage JavaScript -->
+    <script>
+        // Load directories on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadDirectories();
+        });
+
+        async function loadDirectories() {
+            try {
+                const response = await fetch('/api/registry');
+                const data = await response.json();
+
+                const grid = document.getElementById('directories-grid');
+
+                if (data.directories && data.directories.length > 0) {
+                    const html = data.directories.map(slug => `
+                        <div class="directory-card">
+                            <h3>${formatDirectoryName(slug)}</h3>
+                            <p>Find ${formatDirectoryName(slug).toLowerCase()} in your area</p>
+                            <a href="/${slug}" class="btn btn-secondary">Browse Directory</a>
+                        </div>
+                    `).join('');
+
+                    grid.innerHTML = html;
+                } else {
+                    grid.innerHTML = '<p>No directories available yet. Check back soon!</p>';
+                }
+            } catch (error) {
+                console.error('Failed to load directories:', error);
+                document.getElementById('directories-grid').innerHTML =
+                    '<p>Unable to load directories. Please try again later.</p>';
+            }
+        }
+
+        function formatDirectoryName(slug) {
+            return slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        function performGlobalSearch() {
+            const query = document.getElementById('global-search').value.trim();
+            if (query) {
+                // Redirect to search page or perform search
+                window.location.href = `/search?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Allow search on Enter key
+        document.getElementById('global-search').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performGlobalSearch();
+            }
+        });
+    </script>
+                        <p>Find exactly what you're looking for with our powerful search and filtering</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile Friendly</h3>
+                        <p>Access directories on any device with our responsive design</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Fast & Reliable</h3>
+                        <p>Lightning-fast loading with global CDN and caching</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🆓</div>
+                        <h3>Free Forever</h3>
+                        <p>Unlimited directories at no cost - no setup fees, no monthly charges</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Always Updated</h3>
+                        <p>Automatic updates ensure you always have the latest business information</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-links">
+                        <a href="https://simpledirectree.com">Offren</a>
+                        <a href="https://simpledirectree.com/about">About</a>
+                        <a href="mailto:hello@simpledirectree.com">Add Your Business</a>
+                        <a href="https://github.com/simpledirectree" target="_blank">GitHub</a>
+                    </div>
+                    <div class="footer-meta">
+                        <span>© 2024 Offren Directories</span>
+                        <span>•</span>
+                        <span>Powered by <a href="https://simpledirectree.com" target="_blank">Offren</a></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Directory Content -->
     <div id="content" class="main-content" style="display: none;">
         <!-- Header -->
         <header class="header">
