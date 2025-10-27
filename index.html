@@ -6,19 +6,19 @@
     <title id="page-title">Loading Directory...</title>
     <meta name="description" content="Find local services in your area" id="page-description">
     <meta name="keywords" content="local services, directory" id="page-keywords">
-    
-    <!-- Open Graph meta tags (will be updated by JS) -->
+
+    <!-- Open Graph meta tags -->
     <meta property="og:title" content="Loading..." id="og-title">
     <meta property="og:description" content="Find local services in your area" id="og-description">
     <meta property="og:type" content="website">
     <meta property="og:url" content="" id="og-url">
-    
+
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/styles.css">
-    
+
     <!-- Preconnect to API -->
     <link rel="preconnect" href="https://offren-api.hf.space">
 </head>
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Error State -->
     <div id="error" class="error-container" style="display: none;">
         <div class="container">
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Main Content -->
     <div id="content" class="main-content" style="display: none;">
         <!-- Header -->
@@ -63,47 +63,43 @@
                 </div>
             </div>
         </header>
-        
+
         <!-- Filters -->
         <section class="filters-section">
             <div class="container">
                 <div class="filters">
                     <div class="search-box">
-                        <input 
-                            type="text" 
-                            id="search" 
-                            placeholder="Search by name, location, or service..." 
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search by name, location, or service..."
                             onkeyup="filterListings()"
                             autocomplete="off"
                         >
                         <span class="search-icon">🔍</span>
                     </div>
-                    
-                    <div class="filter-chips" id="filter-chips" style="display: none;">
-                        <!-- Dynamic filter chips will be added here -->
-                    </div>
-                    
+
                     <div class="results-count">
                         <span id="results-count">Showing all listings</span>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- Listings -->
         <section class="listings-section">
             <div class="container">
                 <div id="listings" class="listings-grid">
                     <!-- Listings will be populated by JavaScript -->
                 </div>
-                
+
                 <div id="no-results" class="no-results" style="display: none;">
                     <h3>No listings found</h3>
                     <p>Try adjusting your search terms or filters.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
@@ -122,11 +118,11 @@
             </div>
         </footer>
     </div>
-    
+
     <!-- Scripts -->
     <script src="/assets/directory-loader.js"></script>
-    
-    <!-- Schema.org structured data (will be updated by JS) -->
+
+    <!-- Schema.org structured data -->
     <script type="application/ld+json" id="structured-data">
     {
         "@context": "https://schema.org",
