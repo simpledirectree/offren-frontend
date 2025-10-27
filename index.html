@@ -81,46 +81,9 @@
             </div>
         </section>
 
-        <!-- Directory Grid -->
-        <section class="directories-section">
-            <div class="container">
-                <h2>Popular Directories</h2>
-                <div id="directories-grid" class="directories-grid">
-                    <div class="directory-card">
-                        <h3>Plumbing Services</h3>
-                        <p>Find plumbing services in your area</p>
-                        <a href="/plumbing-services" class="btn btn-secondary">Browse Directory</a>
-                    </div>
-
-                    <div class="directory-card">
-                        <h3>Electricians</h3>
-                        <p>Find electricians in your area</p>
-                        <a href="/electricians" class="btn btn-secondary">Browse Directory</a>
-                    </div>
-
-                    <div class="directory-card">
-                        <h3>Roofing</h3>
-                        <p>Find roofing in your area</p>
-                        <a href="/roofing" class="btn btn-secondary">Browse Directory</a>
-                    </div>
-
-                    <div class="directory-card">
-                        <h3>Hvac</h3>
-                        <p>Find hvac in your area</p>
-                        <a href="/hvac" class="btn btn-secondary">Browse Directory</a>
-                    </div>
-
-                    <div class="directory-card">
-                        <h3>Landscaping</h3>
-                        <p>Find landscaping in your area</p>
-                        <a href="/landscaping" class="btn btn-secondary">Browse Directory</a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Features Section -->
-        <section class="features-section">
+        <section id="features-section" class="features-section">
             <div class="container">
                 <h2>Why Choose Offren?</h2>
                 <div class="features-grid">
@@ -144,25 +107,29 @@
                 const response = await fetch('/api/registry');
                 const data = await response.json();
 
-                const grid = document.getElementById('directories-grid');
+                const featuresSection = document.getElementById('features-section');
 
                 if (data.directories && data.directories.length > 0) {
-                    const html = data.directories.map(slug => `
-                        <div class="directory-card">
-                            <h3>${formatDirectoryName(slug)}</h3>
-                            <p>Find ${formatDirectoryName(slug).toLowerCase()} in your area</p>
-                            <a href="/${slug}" class="btn btn-secondary">Browse Directory</a>
+                    const html = `
+                        <div class="container">
+                            <h2>Popular Directories</h2>
+                            <div class="directories-grid">
+                                ${data.directories.map(slug => `
+                                    <div class="directory-card">
+                                        <h3>${formatDirectoryName(slug)}</h3>
+                                        <p>Find ${formatDirectoryName(slug).toLowerCase()} in your area</p>
+                                        <a href="/${slug}" class="btn btn-secondary">Browse Directory</a>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
-                    `).join('');
-
-                    grid.innerHTML = html;
-                } else {
-                    grid.innerHTML = '<p>No directories available yet. Check back soon!</p>';
+                    `;
+                    featuresSection.innerHTML = html;
                 }
+                // If no directories, keep the original "Why Choose Offren?" content
             } catch (error) {
                 console.error('Failed to load directories:', error);
-                document.getElementById('directories-grid').innerHTML =
-                    '<p>Unable to load directories. Please try again later.</p>';
+                // On error, keep the original content
             }
         }
 
