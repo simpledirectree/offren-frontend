@@ -214,10 +214,12 @@
     <!-- Scripts -->
     <script src="/assets/directory-loader.js"></script>
     <script>
-        // Load directories on page load
-        // document.addEventListener('DOMContentLoaded', async () => {
-        //     await loadDirectories();
-        // });
+        // Only run loadDirectories() on the homepage
+        if (window.location.pathname === '/') {
+            document.addEventListener('DOMContentLoaded', async () => {
+                await loadDirectories();
+            });
+        }
 
         async function loadDirectories() {
             try {
